@@ -37,8 +37,11 @@ export async function POST(req: NextRequest) {
 
     console.log("[Visitor Log]:", visitorData);
 
-    // Forward to Google Sheets Webhook URL if configured
-    const webhookUrl = process.env.TRACKING_WEBHOOK_URL;
+    // Forward to Google Sheets Webhook URL
+    const webhookUrl =
+      process.env.TRACKING_WEBHOOK_URL ||
+      "https://script.google.com/macros/s/AKfycbw3NWIc7tOghu8PHVsUH55lroA2V6Tg1VMMlddcdLzhCnBARpEGkDPq02hL_EFhdQ5CEg/exec";
+
     if (webhookUrl) {
       await fetch(webhookUrl, {
         method: "POST",
