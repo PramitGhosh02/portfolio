@@ -1,21 +1,52 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const links = [
-  { href: "/", label: "About" },
-  { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Projects" },
-  { href: "/skills", label: "Skills" },
-  { href: "/education", label: "Education" },
-  { href: "/achievements", label: "Achievements" },
-  { href: "/contributions", label: "Contributions" },
-  { href: "/contact", label: "Contact" },
+const sections = [
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "education", label: "Education" },
+  { id: "achievements", label: "Achievements" },
+  { id: "contributions", label: "Contributions" },
+  { id: "contact", label: "Contact" },
 ];
 
 export default function Nav() {
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState<string>("about");
+
+  useEffect(() => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      rootMargin: "-20% 0px -65% 0px",
+      threshold: 0,
+    });
+
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", `#${id}`);
+      setActiveSection(id);
+    }
+  };
 
   return (
     <header
@@ -41,8 +72,9 @@ export default function Nav() {
         }}
       >
         {/* Wordmark */}
-        <Link
-          href="/"
+        <a
+          href="#about"
+          onClick={(e) => scrollToSection(e, "about")}
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: "0.82rem",
@@ -54,25 +86,25 @@ export default function Nav() {
           }}
         >
           PKG
-        </Link>
+        </a>
 
-        {/* Nav links — scrollable on mobile */}
+        {/* Section anchor tabs */}
         <nav
           className="nav-links"
-          aria-label="Primary navigation"
+          aria-label="Section navigation"
           style={{
             display: "flex",
             gap: "1.25rem",
             alignItems: "center",
           }}
         >
-          {links.map(({ href, label }) => {
-            const active =
-              href === "/" ? pathname === "/" : pathname.startsWith(href);
+          {sections.map(({ id, label }) => {
+            const active = activeSection === id;
             return (
-              <Link
-                key={href}
-                href={href}
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={(e) => scrollToSection(e, id)}
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "0.72rem",
@@ -88,7 +120,7 @@ export default function Nav() {
                 }}
               >
                 {label}
-              </Link>
+              </a>
             );
           })}
         </nav>

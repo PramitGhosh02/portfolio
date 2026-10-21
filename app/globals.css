@@ -28,6 +28,7 @@ html {
   -webkit-text-size-adjust: 100%;
   background: var(--bg);
   color: var(--fg);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -63,7 +64,19 @@ img {
 .page {
   max-width: 860px;
   margin: 0 auto;
-  padding: 3.5rem 1.5rem 5rem;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.portfolio-section {
+  scroll-margin-top: 70px;
+  padding-top: 3.5rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.portfolio-section:first-of-type {
+  border-top: none;
+  padding-top: 0.5rem;
 }
 
 .section-label {
