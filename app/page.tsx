@@ -1,69 +1,194 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 
-export default function Home() {
+export const metadata: Metadata = { title: "Pramit Kumar Ghosh" };
+
+export default function About() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="page">
+      {/* ── Two-column intro ── */}
+      <div className="about-grid fade-up" style={{ marginBottom: "3rem" }}>
+        {/* Profile photo */}
+        <div style={{ flexShrink: 0 }}>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "220px",
+              aspectRatio: "1",
+              border: "1px solid var(--border)",
+              overflow: "hidden",
+              position: "relative",
+            }}
           >
             <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              src="/assets/profile.jpg"
+              alt="Pramit Kumar Ghosh"
+              fill
+              style={{ objectFit: "cover" }}
+              priority
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
         </div>
-      </main>
+
+        {/* Bio */}
+        <div>
+          <p
+            className="section-label fade-up fade-up-1"
+            style={{ marginBottom: "0.6rem" }}
+          >
+            Computer Science Engineering · SIT Nagpur · 2024–2028
+          </p>
+          <h1
+            className="fade-up fade-up-1"
+            style={{
+              fontSize: "2rem",
+              fontWeight: 600,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.15,
+              marginBottom: "1.25rem",
+            }}
+          >
+            Pramit Kumar Ghosh
+          </h1>
+          <p
+            className="fade-up fade-up-2"
+            style={{
+              fontSize: "0.9375rem",
+              color: "var(--muted)",
+              lineHeight: 1.8,
+              marginBottom: "1.75rem",
+            }}
+          >
+            CS student focused on backend development and applied machine
+            learning. I build tools that solve real operational problems —
+            from automating logistics reporting to training NLP classifiers.
+            My work on fake news detection is published in the Indian Patent
+            Office Journal (2026, App. No. 202521126334).
+          </p>
+
+          {/* Action links */}
+          <div
+            className="fade-up fade-up-3"
+            style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap" }}
+          >
+            {[
+              {
+                label: "GitHub",
+                href: "https://github.com/PramitGhosh02",
+                external: true,
+              },
+              {
+                label: "LinkedIn",
+                href: "https://linkedin.com/in/pramit-ghosh-345715228",
+                external: true,
+              },
+              {
+                label: "Email",
+                href: "mailto:pramit.kr.ghosh02@gmail.com",
+                external: false,
+              },
+              {
+                label: "Download CV",
+                href: "/assets/Pramit-Kumar-Ghosh-Resume.pdf",
+                external: false,
+                download: true,
+              },
+            ].map(({ label, href, external, download }) => (
+              <a
+                key={label}
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                download={download ? true : undefined}
+                className="action-link"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Status ── */}
+      <div
+        className="fade-up fade-up-4"
+        style={{ borderTop: "1px solid var(--border)", paddingTop: "2rem" }}
+      >
+        <p className="section-label" style={{ marginBottom: "1rem" }}>
+          Currently
+        </p>
+        <ul
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.6rem",
+            listStyle: "none",
+          }}
+        >
+          <li style={{ fontSize: "0.9375rem", color: "var(--fg)" }}>
+            B.Tech in Computer Science and Engineering (2024–2028) · CGPA 8.53
+          </li>
+          <li style={{ fontSize: "0.9375rem", color: "var(--muted)" }}>
+            Open to full-time roles in backend development and AI/ML engineering
+          </li>
+          <li style={{ fontSize: "0.9375rem", color: "var(--muted)" }}>
+            Based in Nagpur, India
+          </li>
+        </ul>
+      </div>
+
+      {/* ── Quick facts ── */}
+      <div
+        className="fade-up fade-up-4"
+        style={{
+          marginTop: "2.5rem",
+          paddingTop: "2rem",
+          borderTop: "1px solid var(--border)",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+          gap: "0.75rem",
+        }}
+      >
+        {[
+          { value: "8.53", label: "CGPA" },
+          { value: "3", label: "Internships" },
+          { value: "3", label: "Research Projects" },
+          { value: "1", label: "Published Patent" },
+        ].map(({ value, label }) => (
+          <div
+            key={label}
+            style={{
+              padding: "1rem 1.25rem",
+              background: "var(--tag-bg)",
+              border: "1px solid var(--border)",
+            }}
+          >
+            <p
+              className="mono"
+              style={{
+                fontSize: "1.4rem",
+                fontWeight: 700,
+                letterSpacing: "-0.03em",
+                marginBottom: "0.2rem",
+                color: "var(--fg)",
+              }}
+            >
+              {value}
+            </p>
+            <p
+              className="mono"
+              style={{
+                fontSize: "0.68rem",
+                color: "var(--muted)",
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+              }}
+            >
+              {label}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
